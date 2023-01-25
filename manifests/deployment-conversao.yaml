@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: conversao
+  name: conversao
+  namespace: devops
+spec:
+  replicas: 1      
+  selector:
+    matchLabels:
+      app: conversao 
+  template:
+    metadata:
+      labels:
+        app: conversao
+    spec:
+      containers:
+      - name: conversao-temperatura 
+        image: mganalistati/conversao-temperatura:v1
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits: 
+            cpu: 500m
+            memory: 128Mi        
+          requests: 
+            cpu: 250m
+            memory: 64Mi 
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always 
